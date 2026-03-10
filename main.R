@@ -29,4 +29,3 @@ title("1993-1997", ylab = "Age 0-54",
       cex.main = 1.2,
       cex.lab = 1.2)
 summary(slopop)
-sloop sloop 
