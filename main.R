@@ -94,7 +94,7 @@ lines(rs_e1.00, xscale = 365.241, lwd = 1.5, lty = 2, conf.int = FALSE)
 legend("topright", 
       legend = c("Patients diagnosed in 1994", "Patients diagnosed in 2000"),
       col = "black", lty = c(1, 2), lwd = 1.5, bty = "n")
-
+grid(col = "darkgray")
 # Kaplan-Meier estimates versus net survival estimates
 os_km <- survfit(Surv(time,stat)~1, data = sub.rec)
 # Plot the two curves in the same panel
@@ -110,7 +110,7 @@ lines(os_km, xscale = 365.241, lwd = 1.5, lty = 2, conf.int = FALSE)
 legend("topright", 
       legend = c("Net survival with Pohar-Perme", "Overall survival with Kaplan-Meier"),
       col = "black", lty = c(1, 2), lwd = 1.5, bty = "n")
-
+grid(col = "darkgray")
 
 
 
