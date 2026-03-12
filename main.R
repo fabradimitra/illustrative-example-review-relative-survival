@@ -7,6 +7,16 @@ sub.rec <- subset(colrec, site == "rectum")
 ind_10plus <- which(sub.rec$time > 365.241 * 10)
 sub.rec$time[ind_10plus] <- 365.241 * 10
 sub.rec$stat[ind_10plus] <- 0
+# Calculate the percentage of patients censored before the end of follow-up
+# Maximum observed follow-up
+tmax <- max(sub.rec$time)
+# Individuals censored before the end
+interim_censored <- sum(sub.rec$stat == 0 & sub.rec$time < tmax)
+# Total individuals
+n <- nrow(sub.rec)
+# Percentage
+percent_interim <- interim_censored / n * 100
+percent_interim
 # Compute the relative survival estimates using the different estimators
 rs_e1 <- rs.surv(Surv(time,stat)~1,
   rmap = list(age = age, sex = sex, year = diag),
