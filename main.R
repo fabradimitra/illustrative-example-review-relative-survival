@@ -1,12 +1,13 @@
 library(relsurv)
+
 data(colrec)
 summary(colrec)
-# Let us first compare all estimators in the whole population of rectum cancer patients
 sub.rec <- subset(colrec, site == "rectum")
 # Censor all patients at 10 years of follow-up
 ind_10plus <- which(sub.rec$time > 365.241 * 10)
 sub.rec$time[ind_10plus] <- 365.241 * 10
 sub.rec$stat[ind_10plus] <- 0
+
 # Calculate the percentage of patients censored before the end of follow-up
 # Maximum observed follow-up
 tmax <- max(sub.rec$time)
@@ -17,7 +18,8 @@ n <- nrow(sub.rec)
 # Percentage
 percent_interim <- interim_censored / n * 100
 percent_interim
-# Compute the relative survival estimates using the different estimators
+
+# Compute the survival estimates using the different estimators
 rs_e1 <- rs.surv(Surv(time,stat)~1,
   rmap = list(age = age, sex = sex, year = diag),
   method = "ederer1",
@@ -42,7 +44,7 @@ par(mfrow = c(1, 1))
 plot(rs_e1, 
     xscale = 365.241,
     xlab = "Follow-up time in years",
-    ylab = "Probability",
+    ylab = "Survival probability",
     ylim = c(0, 1),
     lwd = 1.5,
     col = "#0072B2",
@@ -85,11 +87,11 @@ rs_e1.00 <- rs.surv(Surv(time,stat)~1,
   ratetable = slopop,
   data = sub.rec.00)
 
-# Plot the two curves in the same panel
+# Plot the two curves
 par(mfrow = c(1, 1))
 plot(rs_e1.94, xscale = 365.241,
       xlab = "Follow-up time in years",
-      ylab = "Rel. surv. ratio",
+      ylab = "Relative survival ratio",
       ylim = c(0, 1),
       lwd = 1.5,
       lty = 1,
@@ -99,9 +101,10 @@ legend("topright",
       legend = c("Diagnosis in 1994", "Diagnosis in 2000"),
       col = "black", lty = c(1, 2), lwd = 1.5, bty = "n")
 grid(col = "darkgray")
-# Kaplan-Meier estimates versus net survival estimates
+
+# Kaplan-Meier estimates versus Pohar-Perme estimates
 os_km <- survfit(Surv(time,stat)~1, data = sub.rec)
-# Plot the two curves in the same panel
+# Plot the two curves
 par(mfrow = c(1, 1))
 plot(rs_pp, xscale = 365.241,
       xlab = "Follow-up time in years",
