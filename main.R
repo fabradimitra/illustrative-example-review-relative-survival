@@ -86,7 +86,7 @@ plot(rs_e1.94, xscale = 365.241,
       conf.int = FALSE)
 lines(rs_e1.00, xscale = 365.241, lwd = 1.5, lty = 2, conf.int = FALSE)
 legend("topright", 
-      legend = c("Patients diagnosed in 1994", "Patients diagnosed in 2000"),
+      legend = c("Diagnosis in 1994", "Diagnosis in 2000"),
       col = "black", lty = c(1, 2), lwd = 1.5, bty = "n")
 grid(col = "darkgray")
 # Kaplan-Meier estimates versus net survival estimates
@@ -102,7 +102,7 @@ plot(rs_pp, xscale = 365.241,
       conf.int = FALSE)
 lines(os_km, xscale = 365.241, lwd = 1.5, lty = 2, conf.int = FALSE)
 legend("topright", 
-      legend = c("Net survival with Pohar-Perme", "Overall survival with Kaplan-Meier"),
+      legend = c("Pohar-Perme", "Kaplan-Meier"),
       col = "black", lty = c(1, 2), lwd = 1.5, bty = "n")
 grid(col = "darkgray")
 
