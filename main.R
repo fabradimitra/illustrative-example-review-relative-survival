@@ -28,41 +28,35 @@ rs_pp <- rs.surv(Surv(time,stat)~1,
   method = "pohar-perme",
   ratetable = slopop,
   data = sub.rec)
-# Plot four panels with a shared legend (Okabe-Ito palette)
-par(mfrow = c(2, 2))
-
-plot(rs_e1, xscale = 365.241,
-     xlab = "Follow-up time in years",
-     ylab = "Rel. surv. ratio",
-     main = "Ederer I",
-     ylim = c(0, 1),
-     lwd = 1.5)
-par(xpd = FALSE)
-grid(col = "black")
-plot(rs_e2, xscale = 365.241,
-     xlab = "Follow-up time in years",
-     ylab = "Obs. net surv.",
-     main = "Ederer II",
-     ylim = c(0, 1),
-     lwd = 1.5)
-par(xpd = FALSE)
-grid(col = "black")
-plot(rs_hak, xscale = 365.241,
-     xlab = "Follow-up time in years",
-     ylab = "Rel. surv. ratio",
-     main = "Hakulinen",
-     ylim = c(0, 1),
-     lwd = 1.5)
-par(xpd = FALSE)
-grid(col = "black")
-plot(rs_pp, xscale = 365.241,
-     xlab = "Follow-up time in years",
-     ylab = "Net surv.",
-     main = "Pohar-Perme",
-     ylim = c(0, 1),
-     lwd = 1.5)
-par(xpd = FALSE)
+par(mfrow = c(1, 1))
+plot(rs_e1, 
+    xscale = 365.241,
+    xlab = "Follow-up time in years",
+    ylab = "Probability",
+    ylim = c(0, 1),
+    lwd = 1.5,
+    col = "#0072B2",
+    conf.int = FALSE)
+lines(rs_e2, 
+     xscale = 365.241,
+     lwd = 1.5,
+     conf.int = FALSE, 
+     col = "#009E73")
+lines(rs_hak, 
+     xscale = 365.241,
+     lwd = 1.5,
+     conf.int = FALSE,
+     col = "#D55E00")
+lines(rs_pp, 
+     xscale = 365.241,
+     lwd = 1.5,
+     conf.int = FALSE,
+     col = "#1B1F23")
 grid(col = "darkgray")
+legend("topright", 
+      legend = c("Ederer I", "Ederer II", "Hakulinen", "Pohar-Perme"),
+      col = c("#0072B2", "#009E73", "#D55E00", "#1B1F23"), 
+      lty = 1, lwd = 1.5, bty = "n")
 
 # Let us consider the subset of rectum cancer patients diagnosed in 1994 and 2000
 sub.rec.94 <- subset(sub.rec,diag >= as.Date("1994-01-01") & diag < as.Date("1995-01-01"))
